@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "clickup_tracker"
+version = "0.1.0"
+description = ""
+authors = ["Rostislaww <rostiki.com@mail.ru>"]
+readme = ["README.md"]
+repository = "https://github.com/RostHarcha/clickup_tracker"
+packages = [
+    { include = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pydantic = "^2.10.4"
+prettytable = "^3.16.0"
+aiohttp = "^3.12.0"
+pydantic-settings = "^2.9.1"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/RostHarcha/clickup_tracker/issues"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
