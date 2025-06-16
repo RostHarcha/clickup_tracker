@@ -1,14 +1,21 @@
 import asyncio
+import logging
 from datetime import datetime
 from itertools import chain
 from typing import TypeVar
 
 from aiohttp import ClientSession
 from aiohttp.typedefs import Query
-from models import FolderList, SpaceList, TrackedTimeList
 from pydantic import BaseModel
 
-from src.models import Folder, Space, TrackedTime
+from src.clickup.models import (
+    Folder,
+    FolderList,
+    Space,
+    SpaceList,
+    TrackedTime,
+    TrackedTimeList,
+)
 
 T = TypeVar('T', bound=BaseModel)
 
@@ -21,12 +28,14 @@ class ClickUpClient:
                 'Authorization': api_token,
             },
         )
+        self._logger = logging.getLogger(self.__class__.__name__)
 
     async def close(self) -> None:
         await self._session.close()
 
     async def _get(self, url, model: type[T], *, params: Query = None) -> T:
         async with self._session.get(url, params=params) as response:
+            self._logger.info('"GET %s" %d', response.url, response.status)
             return model.model_validate_json(await response.read())
 
     async def get_spaces(self, team_id: int) -> list[Space]:

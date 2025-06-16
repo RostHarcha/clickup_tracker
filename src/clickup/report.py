@@ -6,8 +6,8 @@ from functools import cached_property
 from prettytable import PrettyTable
 from pydantic import BaseModel
 
-from src.client import ClickUpClient
-from src.utils import stringify_timedelta
+from src.clickup.client import ClickUpClient
+from src.clickup.utils import stringify_timedelta
 
 
 class ReportRow(BaseModel):
